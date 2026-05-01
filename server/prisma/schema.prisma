@@ -1,0 +1,174 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(uuid())
+  name            String
+  email           String   @unique
+  password        String
+  role            Role     @default(STUDENT)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+
+  // Relations
+  createdCourses  Course[]      @relation("CourseInstructor")
+  enrollments     Enrollment[]
+  chapterProgress ChapterProgress[]
+  quizAttempts    QuizAttempt[]
+  notifications   Notification[]
+  certificates    Certificate[]
+
+  @@map("users")
+}
+
+model Course {
+  id            String   @id @default(uuid())
+  title         String
+  description   String?
+  thumbnail     String?
+  price         Float    @default(0)
+  status        CourseStatus @default(PENDING)
+  instructorId  String
+  createdAt     DateTime @default(now())
+
+  // Relations
+  instructor    User         @relation("CourseInstructor", fields: [instructorId], references: [id])
+  chapters      Chapter[]
+  enrollments   Enrollment[]
+  quizzes       Quiz[]
+  certificates  Certificate[]
+
+  @@map("courses")
+}
+
+model Chapter {
+  id         String   @id @default(uuid())
+  title      String
+  videoUrl   String?
+  duration   Int?     // in seconds
+  order      Int      @default(0)
+  courseId   String
+
+  // Relations
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  progress   ChapterProgress[]
+
+  @@map("chapters")
+}
+
+model Enrollment {
+  id         String   @id @default(uuid())
+  studentId  String
+  courseId   String
+  enrolledAt DateTime @default(now())
+  progress   Float    @default(0)
+
+  // Relations
+  student    User     @relation(fields: [studentId], references: [id])
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId])
+  @@map("enrollments")
+}
+
+model ChapterProgress {
+  id         String   @id @default(uuid())
+  studentId  String
+  chapterId  String
+  watched    Boolean  @default(false)
+  watchedAt  DateTime?
+
+  // Relations
+  student    User     @relation(fields: [studentId], references: [id])
+  chapter    Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, chapterId])
+  @@map("chapter_progress")
+}
+
+model Quiz {
+  id         String     @id @default(uuid())
+  title      String
+  courseId   String
+  createdAt  DateTime   @default(now())
+
+  // Relations
+  course     Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  questions  Question[]
+  attempts   QuizAttempt[]
+
+  @@map("quizzes")
+}
+
+model Question {
+  id            String   @id @default(uuid())
+  quizId        String
+  questionText  String
+  options       Json     // Array of option strings
+  correctAnswer String   // Index or value of correct option
+
+  // Relations
+  quiz          Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("questions")
+}
+
+model QuizAttempt {
+  id          String   @id @default(uuid())
+  studentId   String
+  quizId      String
+  score       Float?
+  attemptedAt DateTime @default(now())
+
+  // Relations
+  student     User     @relation(fields: [studentId], references: [id])
+  quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_attempts")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Certificate {
+  id              String   @id @default(uuid())
+  studentId       String
+  courseId        String
+  issuedAt        DateTime @default(now())
+  certificateUrl  String?
+
+  // Relations
+  student         User     @relation(fields: [studentId], references: [id])
+  course          Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId])
+  @@map("certificates")
+}
+
+enum Role {
+  ADMIN
+  INSTRUCTOR
+  STUDENT
+}
+
+enum CourseStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
