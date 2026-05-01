@@ -40,7 +40,7 @@ const CreateCourse = () => {
     setError('')
 
     try {
-      const response = await axios.post('/api/courses', formData)
+      const response = await api.post('/api/courses', formData)
       navigate(`/instructor/courses/${response.data.course.id}`)
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create course')

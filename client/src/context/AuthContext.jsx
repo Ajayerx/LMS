@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
     // Disconnect Socket.io
     disconnectSocket()
     localStorage.removeItem('token')
-    delete axios.defaults.headers.common['Authorization']
+    delete api.defaults.headers.common['Authorization']
     setUser(null)
   }
 

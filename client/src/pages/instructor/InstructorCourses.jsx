@@ -16,7 +16,7 @@ const InstructorCourses = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get('/api/courses/instructor/my-courses')
+      const response = await api.get('/api/courses/instructor/my-courses')
       setCourses(response.data.courses || [])
     } catch (err) {
       // Error handling
@@ -27,7 +27,7 @@ const InstructorCourses = () => {
 
   const handleDelete = async (courseId) => {
     try {
-      await axios.delete(`/api/courses/${courseId}`)
+      await api.delete(`/api/courses/${courseId}`)
       setCourses(courses.filter(c => c.id !== courseId))
       setDeleteConfirm(null)
     } catch (err) {

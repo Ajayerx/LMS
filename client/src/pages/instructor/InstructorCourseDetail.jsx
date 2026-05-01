@@ -36,8 +36,8 @@ const InstructorCourseDetail = () => {
   const fetchData = async () => {
     try {
       const [courseRes, chaptersRes] = await Promise.all([
-        axios.get(`/api/courses/${id}`),
-        axios.get(`/api/course/${id}/chapters`)
+        api.get(`/api/courses/${id}`),
+        api.get(`/api/course/${id}/chapters`)
       ])
       setCourse(courseRes.data.course || courseRes.data)
       setChapters(chaptersRes.data.chapters || [])
@@ -57,7 +57,7 @@ const InstructorCourseDetail = () => {
     e.preventDefault()
     setSaving(true)
     try {
-      await axios.put(`/api/courses/${id}`, courseForm)
+      await api.put(`/api/courses/${id}`, courseForm)
       setCourse({ ...course, ...courseForm })
       setEditingCourse(false)
     } catch (err) {
@@ -79,7 +79,7 @@ const InstructorCourseDetail = () => {
         formData.append('video', chapterForm.video)
       }
 
-      await axios.post(`/api/course/${id}/chapters`, formData, {
+      await api.post(`/api/course/${id}/chapters`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
@@ -97,7 +97,7 @@ const InstructorCourseDetail = () => {
     if (!confirm('Are you sure you want to delete this chapter?')) return
 
     try {
-      await axios.delete(`/api/chapters/${chapterId}`)
+      await api.delete(`/api/chapters/${chapterId}`)
       setChapters(chapters.filter(c => c.id !== chapterId))
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete chapter')
@@ -113,7 +113,7 @@ const InstructorCourseDetail = () => {
         formData.append('video', editingChapter.video)
       }
 
-      await axios.put(`/api/chapters/${chapterId}`, formData, {
+      await api.put(`/api/chapters/${chapterId}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
