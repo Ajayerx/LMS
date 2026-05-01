@@ -26,7 +26,7 @@ import {
   ResponsiveContainer,
   Cell
 } from 'recharts'
-import { Button, Card, Badge, Avatar, Spinner, ResponsiveTable } from '../../components/ui'
+import { Button, Card, Badge, Avatar, Spinner, ResponsiveTable } from '../../components/UI'
 
 const InstructorDashboard = () => {
   const { user } = useAuth()

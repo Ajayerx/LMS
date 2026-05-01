@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../api/axios'
 import { Timer, CheckCircle, XCircle, AlertCircle, ArrowLeft } from 'lucide-react'
-import { Button } from '../components/ui'
+import { Button } from '../components/UI'
 
 const Quiz = () => {
   const { quizId } = useParams()

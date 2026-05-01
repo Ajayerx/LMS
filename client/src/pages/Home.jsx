@@ -16,7 +16,7 @@ import {
   Linkedin,
   Mail
 } from 'lucide-react'
-import { Button, Card, Badge, AnimatedPage } from '../components/ui'
+import { Button, Card, Badge, AnimatedPage } from '../components/UI'
 import api from '../api/axios'
 
 // Stats data

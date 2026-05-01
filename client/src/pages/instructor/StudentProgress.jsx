@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import api from '../../api/axios'
 import { ArrowLeft, Users, Search, Mail, Award } from 'lucide-react'
-import { Button } from '../../components/ui'
+import { Button } from '../../components/UI'
 
 const StudentProgress = () => {
   const { id } = useParams()

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useAuth } from '../context/AuthContext'
-import { Button, AnimatedPage } from '../components/ui'
+import { Button, AnimatedPage } from '../components/UI'
 import { GraduationCap, User, Mail, Lock, ArrowRight, BookOpen, Users } from 'lucide-react'
 
 const Register = () => {

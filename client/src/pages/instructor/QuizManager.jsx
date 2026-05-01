@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import api from '../../api/axios'
 import { ArrowLeft, Plus, Trash2, Edit2, Save, X, CheckCircle } from 'lucide-react'
-import { Button } from '../../components/ui'
+import { Button } from '../../components/UI'
 
 const QuizManager = () => {
   const { id } = useParams()

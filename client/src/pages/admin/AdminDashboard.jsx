@@ -27,7 +27,7 @@ import {
   ArrowDownRight,
   MoreHorizontal
 } from 'lucide-react'
-import { Button, Card, Badge, Avatar, Spinner, ResponsiveTable } from '../../components/ui'
+import { Button, Card, Badge, Avatar, Spinner, ResponsiveTable } from '../../components/UI'
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({

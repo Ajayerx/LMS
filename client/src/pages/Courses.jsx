@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useAuth } from '../context/AuthContext'
 import api from '../api/axios'
 import { CourseCard, CourseCardSkeleton } from '../components/courses'
-import { StaggerContainer, StaggerItem, AnimatedPage } from '../components/ui'
+import { StaggerContainer, StaggerItem, AnimatedPage } from '../components/UI'
 
 const Courses = () => {
   const [courses, setCourses] = useState([])

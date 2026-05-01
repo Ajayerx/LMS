@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../api/axios'
 import { PlayCircle, BookOpen, Award, Clock } from 'lucide-react'
-import { Button } from '../components/ui'
+import { Button } from '../components/UI'
 
 const MyCourses = () => {
   const { user } = useAuth()

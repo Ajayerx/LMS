@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import api from '../api/axios'
-import { Button, Card, ProgressBar, Badge, Avatar, PageWrapper } from '../components/ui'
+import { Button, Card, ProgressBar, Badge, Avatar, PageWrapper } from '../components/UI'
 import { 
   BookOpen, 
   Award, 

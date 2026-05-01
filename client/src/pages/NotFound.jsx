@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Home, ArrowLeft, SearchX } from 'lucide-react'
-import { Button } from '../components/ui'
+import { Button } from '../components/UI'
 
 const NotFound = () => {
   const navigate = useNavigate()

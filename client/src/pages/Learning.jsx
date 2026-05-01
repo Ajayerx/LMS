@@ -23,7 +23,7 @@ import {
   BookOpen,
   MoreHorizontal
 } from 'lucide-react'
-import { Button, Badge, Card, ProgressBar, EmptyState, Avatar } from '../components/ui'
+import { Button, Badge, Card, ProgressBar, EmptyState, Avatar } from '../components/UI'
 
 const Learning = () => {
   const { courseId } = useParams()
