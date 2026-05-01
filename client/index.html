@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6C63FF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1A1A2E" media="(prefers-color-scheme: dark)" />
+    <meta name="description" content="Modern Learning Management System - Learn, teach, and grow with our comprehensive online education platform" />
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <title>LMS - Learning Management System</title>
+    
+    <!-- Prevent flash of wrong theme -->
+    <script>
+      (function() {
+        const theme = localStorage.getItem('lms-theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    
+    <style>
+      /* Prevent FOUC (Flash of Unstyled Content) */
+      html {
+        background-color: #F9FAFB;
+      }
+      html[data-theme="dark"] {
+        background-color: #0F0F1A;
+      }
+      
+      /* Smooth theme transitions */
+      .theme-transitioning * {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
