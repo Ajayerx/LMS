@@ -64,9 +64,9 @@ app.use(generalLimiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Routes - Apply specific validators and rate limits
-app.use('/api/auth/login', authLimiter, loginValidator);
-app.use('/api/auth/register', authLimiter, registerValidator);
+// Routes - Auth routes with rate limiting and validators applied within router
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api', chapterRoutes);
