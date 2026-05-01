@@ -24,7 +24,7 @@ const CourseDetail = () => {
 
   const fetchCourse = async () => {
     try {
-      const response = await axios.get(`/api/courses/${id}`)
+      const response = await api.get(`/api/courses/${id}`)
       setCourse(response.data.course || response.data)
     } catch (err) {
       setError('Failed to fetch course details')
@@ -35,7 +35,7 @@ const CourseDetail = () => {
 
   const checkEnrollment = async () => {
     try {
-      const response = await axios.get(`/api/enrollments/course/${id}`)
+      const response = await api.get(`/api/enrollments/course/${id}`)
       setEnrollment(response.data.enrollment)
     } catch (err) {
       setEnrollment(null)
@@ -53,7 +53,7 @@ const CourseDetail = () => {
     setSuccess('')
 
     try {
-      await axios.post(`/api/enrollments/${id}`)
+      await api.post(`/api/enrollments/${id}`)
       setSuccess('Successfully enrolled!')
       checkEnrollment()
     } catch (err) {

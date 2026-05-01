@@ -24,13 +24,13 @@ const StudentProgress = () => {
   const fetchData = async () => {
     try {
       // Get course details
-      const courseRes = await axios.get(`/api/courses/${id}`)
+      const courseRes = await api.get(`/api/courses/${id}`)
       setCourse(courseRes.data.course || courseRes.data)
 
       // Get students - using admin endpoint with course filter or creating a custom approach
       // Since we don't have a direct endpoint, we'll get enrollments and fetch student details
       // For now, we'll use a workaround by fetching admin stats
-      const adminStatsRes = await axios.get(`/api/admin/courses/${id}/analytics`).catch(() => null)
+      const adminStatsRes = await api.get(`/api/admin/courses/${id}/analytics`).catch(() => null)
 
       if (adminStatsRes?.data?.recentEnrollments) {
         const enrollments = adminStatsRes.data.recentEnrollments

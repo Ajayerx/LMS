@@ -47,7 +47,7 @@ const InstructorDashboard = () => {
   const fetchInstructorData = async () => {
     try {
       // Get instructor courses
-      const coursesRes = await axios.get('/api/courses/instructor/my-courses')
+      const coursesRes = await api.get('/api/courses/instructor/my-courses')
       const instructorCourses = coursesRes.data.courses || []
       setCourses(instructorCourses)
 

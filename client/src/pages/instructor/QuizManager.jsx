@@ -34,11 +34,11 @@ const QuizManager = () => {
   const fetchData = async () => {
     try {
       // Get course details
-      const courseRes = await axios.get(`/api/courses/${id}`)
+      const courseRes = await api.get(`/api/courses/${id}`)
       setCourse(courseRes.data.course || courseRes.data)
 
       // Get quizzes for this course
-      const quizzesRes = await axios.get(`/api/course/${id}/quizzes`)
+      const quizzesRes = await api.get(`/api/course/${id}/quizzes`)
       const quizzes = quizzesRes.data.quizzes || []
 
       if (quizzes.length > 0) {
@@ -46,7 +46,7 @@ const QuizManager = () => {
         setQuiz(existingQuiz)
 
         // Get quiz details with questions
-        const quizRes = await axios.get(`/api/quiz/${existingQuiz.id}`)
+        const quizRes = await api.get(`/api/quiz/${existingQuiz.id}`)
         setQuestions(quizRes.data.questions || [])
       }
     } catch (err) {
@@ -60,7 +60,7 @@ const QuizManager = () => {
     e.preventDefault()
     setSaving(true)
     try {
-      const response = await axios.post(`/api/courses/${id}/quiz`, quizForm)
+      const response = await api.post(`/api/courses/${id}/quiz`, quizForm)
       setQuiz(response.data.quiz)
       setShowQuizForm(false)
     } catch (err) {
@@ -76,7 +76,7 @@ const QuizManager = () => {
 
     setSaving(true)
     try {
-      await axios.post(`/api/quiz/${quiz.id}/questions`, {
+      await api.post(`/api/quiz/${quiz.id}/questions`, {
         questions: [{
           questionText: questionForm.questionText,
           options: questionForm.options,
@@ -89,7 +89,7 @@ const QuizManager = () => {
       setShowQuestionForm(false)
 
       // Refresh questions
-      const quizRes = await axios.get(`/api/quiz/${quiz.id}`)
+      const quizRes = await api.get(`/api/quiz/${quiz.id}`)
       setQuestions(quizRes.data.questions || [])
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to add question')

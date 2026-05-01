@@ -5,30 +5,38 @@ const Badge = ({
   className = '',
 }) => {
   const sizeClasses = {
+    xs: 'px-1.5 py-0.5 text-xs',
     sm: 'px-2 py-0.5 text-xs',
     md: 'px-2.5 py-1 text-sm',
-    lg: 'px-3 py-1.5 text-base',
+    lg: 'px-3 py-1.5 text-sm',
   }
 
+  // Clean Light Theme Variants
   const variantClasses = {
     // Status variants
-    default: 'bg-light-tertiary dark:bg-dark-tertiary text-text-secondary',
-    approved: 'bg-success/10 text-success border border-success/20',
-    pending: 'bg-secondary/10 text-secondary border border-secondary/20',
-    rejected: 'bg-danger/10 text-danger border border-danger/20',
+    default: 'bg-gray-100 text-gray-700',
+    approved: 'bg-success-50 text-success-700 border border-success-200',
+    pending: 'bg-warning-50 text-warning-700 border border-warning-200',
+    rejected: 'bg-danger-50 text-danger-700 border border-danger-200',
     
     // Role variants
-    admin: 'bg-primary/10 text-primary border border-primary/20',
-    instructor: 'bg-info/10 text-info border border-info/20',
-    student: 'bg-success/10 text-success border border-success/20',
+    admin: 'bg-primary-50 text-primary-700 border border-primary-200',
+    instructor: 'bg-info-50 text-info-700 border border-info-200',
+    student: 'bg-success-50 text-success-700 border border-success-200',
     
-    // Other variants
-    primary: 'bg-primary/10 text-primary',
-    secondary: 'bg-secondary/10 text-secondary',
-    success: 'bg-success/10 text-success',
-    danger: 'bg-danger/10 text-danger',
-    warning: 'bg-warning/10 text-warning',
-    info: 'bg-info/10 text-info',
+    // Color variants
+    primary: 'bg-primary-50 text-primary-700',
+    secondary: 'bg-secondary-50 text-secondary-700',
+    success: 'bg-success-50 text-success-700',
+    danger: 'bg-danger-50 text-danger-700',
+    warning: 'bg-warning-50 text-warning-700',
+    info: 'bg-info-50 text-info-700',
+    
+    // Solid variants
+    'primary-solid': 'bg-primary-600 text-white',
+    'success-solid': 'bg-success-600 text-white',
+    'danger-solid': 'bg-danger-600 text-white',
+    'warning-solid': 'bg-warning-500 text-white',
   }
 
   const classes = `

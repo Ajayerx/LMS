@@ -18,96 +18,88 @@ const Button = ({
   // Base classes
   const baseClasses = `
     inline-flex items-center justify-center
-    font-semibold
-    rounded-xl
+    font-medium
+    rounded-lg
     transition-all duration-200 ease-out
     focus:outline-none focus:ring-2 focus:ring-offset-2
     disabled:opacity-50 disabled:cursor-not-allowed
+    cursor-pointer
   `.trim()
 
   // Size classes
   const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm gap-1.5',
+    xs: 'px-2.5 py-1.5 text-xs gap-1',
+    sm: 'px-3 py-2 text-sm gap-1.5',
     md: 'px-4 py-2.5 text-sm gap-2',
-    lg: 'px-6 py-3 text-base gap-2.5',
+    lg: 'px-5 py-3 text-base gap-2',
+    xl: 'px-6 py-3.5 text-base gap-2.5',
   }
 
-  // Premium Variant classes
+  // Clean Light Theme Variants
   const variantClasses = {
     primary: `
-      premium-gradient
+      bg-primary-600
       text-white
-      font-semibold
-      premium-shadow
-      hover:premium-shadow-lg
-      focus:ring-primary/30
-      hover-lift
-      relative
-      overflow-hidden
+      hover:bg-primary-700
+      focus:ring-primary-500/30
+      shadow-sm hover:shadow-md
+      active:bg-primary-800
     `,
     secondary: `
-      bg-glass
-      text-text-primary
-      font-medium
-      hover:bg-primary/10
-      focus:ring-primary/30
-      border border-glass
-      hover-lift
-      backdrop-blur-sm
+      bg-gray-100
+      text-gray-700
+      hover:bg-gray-200
+      focus:ring-gray-500/30
+      border border-gray-200
+      active:bg-gray-300
     `,
     ghost: `
-      text-text-secondary
-      font-medium
-      hover:text-primary
-      hover:bg-primary/5
-      focus:ring-primary/30
-      hover-lift
+      text-gray-600
+      hover:text-gray-900
+      hover:bg-gray-100
+      focus:ring-gray-500/20
     `,
     outline: `
-      border-2 border-primary
-      text-primary
-      font-medium
-      hover:bg-primary
-      hover:text-white
-      focus:ring-primary/30
-      hover-lift
-      transition-all duration-300
+      border-2 border-primary-600
+      text-primary-600
+      hover:bg-primary-50
+      focus:ring-primary-500/30
+      active:bg-primary-100
     `,
     success: `
-      bg-gradient-to-r from-success to-success-600
+      bg-success-600
       text-white
-      font-semibold
-      premium-shadow
-      hover:premium-shadow-lg
-      focus:ring-success/30
-      hover-lift
+      hover:bg-success-700
+      focus:ring-success-500/30
+      shadow-sm hover:shadow-md
     `,
     danger: `
-      bg-gradient-to-r from-danger to-danger-600
+      bg-danger-600
       text-white
-      font-semibold
-      premium-shadow
-      hover:premium-shadow-lg
-      focus:ring-danger/30
-      hover-lift
+      hover:bg-danger-700
+      focus:ring-danger-500/30
+      shadow-sm hover:shadow-md
     `,
     warning: `
-      bg-gradient-to-r from-warning to-warning-600
+      bg-warning-500
       text-white
-      font-semibold
-      premium-shadow
-      hover:premium-shadow-lg
-      focus:ring-warning/30
-      hover-lift
+      hover:bg-warning-600
+      focus:ring-warning-500/30
+      shadow-sm hover:shadow-md
     `,
     info: `
-      bg-gradient-to-r from-info to-info-600
+      bg-info-600
       text-white
-      font-semibold
-      premium-shadow
-      hover:premium-shadow-lg
-      focus:ring-info/30
-      hover-lift
+      hover:bg-info-700
+      focus:ring-info-500/30
+      shadow-sm hover:shadow-md
+    `,
+    link: `
+      text-primary-600
+      hover:text-primary-700
+      hover:underline
+      underline-offset-4
+      p-0
     `
   }
 
@@ -116,7 +108,6 @@ const Button = ({
     ${sizeClasses[size]}
     ${variantClasses[variant]}
     ${fullWidth ? 'w-full' : ''}
-    ${variant === 'primary' ? 'btn-shimmer' : ''}
     ${className}
   `.trim()
 
@@ -126,9 +117,8 @@ const Button = ({
       className={classes}
       disabled={disabled || loading}
       onClick={onClick}
-      whileTap={{ scale: disabled || loading ? 1 : 0.96 }}
-      whileHover={{ scale: disabled || loading ? 1 : 1.03 }}
-      transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+      whileTap={{ scale: disabled || loading ? 1 : 0.98 }}
+      transition={{ duration: 0.1 }}
       {...props}
     >
       {loading && (
