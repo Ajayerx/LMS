@@ -2,7 +2,7 @@ import { useState, createContext, useContext } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useTheme } from '../../context/ThemeContext'
-import { Avatar, Badge, Button } from '../ui'
+import { Avatar, Badge, Button } from '../UI'
 import {
   LayoutDashboard,
   BookOpen,

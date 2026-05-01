@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Star, Users, Play, CheckCircle, Clock } from 'lucide-react'
-import { Button, Badge, ProgressBar } from '../ui'
+import { Button, Badge, ProgressBar } from '../UI'
 
 const CourseCard = ({ 
   course, 
