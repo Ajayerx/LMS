@@ -4,9 +4,9 @@
   "description": "LMS Backend API",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "seed": "node prisma/seed.js"
+    "start": "node --env-file=.env src/index.js",
+    "dev": "nodemon --env-file=.env src/index.js",
+    "seed": "node --env-file=.env prisma/seed.js"
   },
   "prisma": {
     "seed": "node prisma/seed.js"

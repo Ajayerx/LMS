@@ -69,7 +69,7 @@ const Navbar = () => {
 
   const fetchUnreadCount = async () => {
     try {
-      const response = await api.get('/api/notifications?unreadOnly=true')
+      const response = await api.get('/notifications?unreadOnly=true')
       setUnreadCount(response.data.unreadCount || 0)
     } catch (err) {
       // Error handling

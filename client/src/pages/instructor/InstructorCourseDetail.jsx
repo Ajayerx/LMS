@@ -36,8 +36,8 @@ const InstructorCourseDetail = () => {
   const fetchData = async () => {
     try {
       const [courseRes, chaptersRes] = await Promise.all([
-        api.get(`/api/courses/${id}`),
-        api.get(`/api/course/${id}/chapters`)
+        api.get(`/courses/${id}`),
+        api.get(`/course/${id}/chapters`)
       ])
       setCourse(courseRes.data.course || courseRes.data)
       setChapters(chaptersRes.data.chapters || [])
@@ -57,7 +57,7 @@ const InstructorCourseDetail = () => {
     e.preventDefault()
     setSaving(true)
     try {
-      await api.put(`/api/courses/${id}`, courseForm)
+      await api.put(`/courses/${id}`, courseForm)
       setCourse({ ...course, ...courseForm })
       setEditingCourse(false)
     } catch (err) {
@@ -79,7 +79,7 @@ const InstructorCourseDetail = () => {
         formData.append('video', chapterForm.video)
       }
 
-      await api.post(`/api/course/${id}/chapters`, formData, {
+      await api.post(`/course/${id}/chapters`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
@@ -97,7 +97,7 @@ const InstructorCourseDetail = () => {
     if (!confirm('Are you sure you want to delete this chapter?')) return
 
     try {
-      await api.delete(`/api/chapters/${chapterId}`)
+      await api.delete(`/chapters/${chapterId}`)
       setChapters(chapters.filter(c => c.id !== chapterId))
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete chapter')
@@ -113,7 +113,7 @@ const InstructorCourseDetail = () => {
         formData.append('video', editingChapter.video)
       }
 
-      await api.put(`/api/chapters/${chapterId}`, formData, {
+      await api.put(`/chapters/${chapterId}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
@@ -139,7 +139,7 @@ const InstructorCourseDetail = () => {
     setChapters(newChapters)
 
     // API call to update order would go here
-    // await axios.patch(`/api/chapters/${temp.id}/reorder`, { order: newIndex })
+    // await axios.patch(`/chapters/${temp.id}/reorder`, { order: newIndex })
   }
 
   if (loading) {

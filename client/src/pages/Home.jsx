@@ -187,7 +187,7 @@ const Home = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await api.get('/api/courses?limit=6')
+        const response = await api.get('/courses?limit=6')
         setFeaturedCourses(response.data.courses || [])
       } catch (err) {
         // Use mock data if API fails

@@ -17,7 +17,7 @@ const Certificates = () => {
 
   const fetchCertificates = async () => {
     try {
-      const response = await api.get('/api/certificates/my-certificates')
+      const response = await api.get('/certificates/my-certificates')
       setCertificates(response.data.certificates || [])
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch certificates')

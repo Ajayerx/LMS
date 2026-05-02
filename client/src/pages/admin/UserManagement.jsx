@@ -22,7 +22,7 @@ const UserManagement = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await api.get('/api/admin/users')
+      const response = await api.get('/admin/users')
       setUsers(response.data.users || [])
     } catch (err) {
       // Error handling
@@ -34,7 +34,7 @@ const UserManagement = () => {
   const handleToggleStatus = async (userId, currentStatus) => {
     setProcessing(prev => ({ ...prev, [userId]: true }))
     try {
-      await api.patch(`/api/admin/users/${userId}/toggle-status`)
+      await api.patch(`/admin/users/${userId}/toggle-status`)
       setUsers(users.map(u =>
         u.id === userId ? { ...u, isActive: !currentStatus } : u
       ))

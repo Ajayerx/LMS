@@ -32,8 +32,8 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       const [enrollmentsRes, certificatesRes] = await Promise.all([
-        api.get('/api/enrollments/my-courses'),
-        api.get('/api/certificates/my-certificates')
+        api.get('/enrollments/my-courses'),
+        api.get('/certificates/my-certificates')
       ])
       setEnrollments(enrollmentsRes.data.enrollments || [])
       setCertificates(certificatesRes.data.certificates || [])

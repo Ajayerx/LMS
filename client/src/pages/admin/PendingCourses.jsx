@@ -13,7 +13,7 @@ const PendingCourses = () => {
 
   const fetchPendingCourses = async () => {
     try {
-      const response = await api.get('/api/admin/pending-courses')
+      const response = await api.get('/admin/pending-courses')
       setCourses(response.data.courses || [])
     } catch (err) {
       // Error handling
@@ -25,7 +25,7 @@ const PendingCourses = () => {
   const handleApprove = async (courseId) => {
     setProcessing(prev => ({ ...prev, [courseId]: 'approving' }))
     try {
-      await api.patch(`/api/courses/${courseId}/approve`, { status: 'APPROVED' })
+      await api.patch(`/courses/${courseId}/approve`, { status: 'APPROVED' })
       setCourses(courses.filter(c => c.id !== courseId))
     } catch (err) {
       alert(err.response?.data?.message || 'Failed to approve course')
@@ -39,7 +39,7 @@ const PendingCourses = () => {
 
     setProcessing(prev => ({ ...prev, [courseId]: 'rejecting' }))
     try {
-      await api.patch(`/api/courses/${courseId}/approve`, { status: 'REJECTED' })
+      await api.patch(`/courses/${courseId}/approve`, { status: 'REJECTED' })
       setCourses(courses.filter(c => c.id !== courseId))
     } catch (err) {
       alert(err.response?.data?.message || 'Failed to reject course')

@@ -19,7 +19,7 @@ const Courses = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await api.get('/api/courses')
+      const response = await api.get('/courses')
       setCourses(response.data.courses || response.data)
     } catch (err) {
       setError('Failed to fetch courses')
@@ -38,7 +38,7 @@ const Courses = () => {
     }
 
     try {
-      await api.post(`/api/enrollments/${courseId}`)
+      await api.post(`/enrollments/${courseId}`)
       navigate(`/courses/${courseId}`)
     } catch (err) {
       setError(err.response?.data?.message || 'Enrollment failed')

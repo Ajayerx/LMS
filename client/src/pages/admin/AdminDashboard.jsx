@@ -52,7 +52,7 @@ const AdminDashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const statsRes = await api.get('/api/admin/stats')
+      const statsRes = await api.get('/admin/stats')
       const data = statsRes.data.stats
       setStats(data)
       setRecentActivity(statsRes.data.recentActivity || { recentEnrollments: [], recentCourses: [] })

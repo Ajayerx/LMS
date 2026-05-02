@@ -1,8 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 import { createServer } from 'http';
+
+console.log('🚀 [Server] Starting LMS Server...');
+console.log('🔍 [Server] NODE_ENV:', process.env.NODE_ENV || 'development');
+console.log('🔍 [Server] PORT:', process.env.PORT || 5000);
+console.log('🔍 [Server] DATABASE_URL at index.js load:', !!process.env.DATABASE_URL);
+
 import authRoutes from './routes/authRoutes.js';
 import courseRoutes from './routes/courseRoutes.js';
 import chapterRoutes from './routes/chapterRoutes.js';
@@ -15,58 +20,43 @@ import adminRoutes from './routes/adminRoutes.js';
 import userRoutes from './routes/user.routes.js';
 import { initializeSocket } from './config/socket.js';
 import errorHandler from './middleware/errorHandler.js';
-import { loginValidator, registerValidator } from './middleware/validators.js';
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Create HTTP server
 const httpServer = createServer(app);
 
-// Initialize Socket.io
+console.log('🔌 [Server] Initializing Socket.io...');
 initializeSocket(httpServer);
+console.log('✅ [Server] Socket.io initialized');
 
-// CORS Configuration
 const corsOptions = {
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 };
+
+console.log('🌐 [Server] CORS origin set to:', corsOptions.origin);
 app.use(cors(corsOptions));
 
-// Rate Limiting Configuration
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // 10 attempts per window
-  message: {
-    success: false,
-    message: 'Too many authentication attempts. Please try again after 15 minutes.'
-  },
-  standardHeaders: true,
-  legacyHeaders: false
-});
-
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requests per window
-  message: {
-    success: false,
-    message: 'Too many requests. Please try again later.'
-  }
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { success: false, message: 'Too many requests. Please try again later.' }
 });
 
-// Apply general rate limiting to all routes
 app.use(generalLimiter);
-
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Routes - Auth routes with rate limiting and validators applied within router
-app.use('/api/auth/login', authLimiter);
-app.use('/api/auth/register', authLimiter);
+// Request logger — shows every incoming request in terminal
+app.use((req, res, next) => {
+  console.log(`📨 [${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+  next();
+});
+
+console.log('📋 [Server] Registering routes...');
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api', chapterRoutes);
@@ -77,19 +67,20 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/enrollments', enrollmentRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/users', userRoutes);
+console.log('✅ [Server] All routes registered');
 
-// Health check
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    database: !!process.env.DATABASE_URL ? 'configured' : 'missing ❌'
   });
 });
 
-// 404 Handler
 app.use((req, res) => {
+  console.warn(`⚠️  [Server] 404 - Route not found: ${req.method} ${req.originalUrl}`);
   res.status(404).json({
     success: false,
     message: 'Route not found',
@@ -97,11 +88,15 @@ app.use((req, res) => {
   });
 });
 
-// Global Error Handler
 app.use(errorHandler);
 
 httpServer.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`CORS enabled for: ${corsOptions.origin}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log('');
+  console.log('╔════════════════════════════════════╗');
+  console.log(`║  ✅ Server running on port ${PORT}     ║`);
+  console.log(`║  🌐 CORS: ${corsOptions.origin}`);
+  console.log(`║  🗄️  DB configured: ${!!process.env.DATABASE_URL}          ║`);
+  console.log(`║  🔑 JWT configured: ${!!process.env.JWT_SECRET}          ║`);
+  console.log('╚════════════════════════════════════╝');
+  console.log('');
 });

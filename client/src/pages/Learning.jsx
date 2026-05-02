@@ -73,6 +73,13 @@ const Learning = () => {
     }
   }
 
+  const isChapterWatched = (chapterId) => {
+    const chapterProgress = progress?.chapters?.find(
+      p => p.id === chapterId || p.chapterId === chapterId
+    )
+    return chapterProgress?.progress?.watched || false
+  }
+
   const currentChapter = chapters.find(ch => ch.id === currentChapterId)
   const currentChapterIndex = chapters.findIndex(ch => ch.id === currentChapterId)
   const isWatched = currentChapterId ? isChapterWatched(currentChapterId) : false
@@ -107,13 +114,6 @@ const Learning = () => {
     } finally {
       setMarkingWatched(false)
     }
-  }
-
-  const isChapterWatched = (chapterId) => {
-    const chapterProgress = progress?.chapters?.find(
-      p => p.id === chapterId || p.chapterId === chapterId
-    )
-    return chapterProgress?.progress?.watched || false
   }
 
   const formatDuration = (seconds) => {
